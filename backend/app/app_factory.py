@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from settings import settings
 from apps.info.router import info_router
+from apps.users.router import router_users
 
 
 def get_application() -> FastAPI:
@@ -10,6 +11,8 @@ def get_application() -> FastAPI:
         debug=settings.DEBUG,
         root_path="/api",
     )
+
+    app.include_router(router_users, prefix="/users", tags=["Users"])
 
     if settings.DEBUG:
         app.include_router(info_router, prefix="/info", tags=["INFO"])
